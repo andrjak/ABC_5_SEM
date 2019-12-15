@@ -1,5 +1,6 @@
 #include "pch.h"
 #include <thread>
+#include <atomic>
 
 using namespace std;
 
@@ -9,7 +10,7 @@ template<typename Q>
 class Consumer
 {
 private:
-	unsigned long long _counter;
+	atomic<unsigned long long> _counter;
 	unsigned int _consumerNum;
 	Q* _queue;
 

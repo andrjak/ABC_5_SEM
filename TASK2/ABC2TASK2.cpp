@@ -12,8 +12,10 @@ using namespace std;
 
 typedef uint8_t byte;
 
-unsigned int ProducerNum = 2, ConsumerNum = 2, QueueSize = 2;
-const unsigned int TaskNum = 1024;//4 * 1024 * 1024;
+unsigned int ProducerNum = 2;
+unsigned int ConsumerNum = 2;
+unsigned int QueueSize = 2;
+const unsigned int TaskNum = 1024 * 1024;//4 * 1024 * 1024;
 
 template<typename Q>
 void Task(Q* _queue)

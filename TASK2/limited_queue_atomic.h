@@ -8,7 +8,7 @@ typedef uint8_t byte;
 class limited_queue_atomic
 {
 private:
-	unsigned int _size;
+	atomic<unsigned int> _size;
 	atomic<byte>* _vector;
 	alignas(64) atomic<int> _end;
 	alignas(64) atomic<int> _start;
@@ -37,8 +37,10 @@ limited_queue_atomic::~limited_queue_atomic()
 // Вариант как в книге
 void limited_queue_atomic::push(byte val)
 {
+	
 	for (;;)
 	{
+		//cout << "push " << _start << " " << _end << " " << _size << endl;
 		auto local_end = _end.load(); // Извлекаем значение _end
 		byte temp = _vector[local_end % _size];
 		if (local_end != _end) // Кто-то изменил счётчик, значит данные уже не актуальны 
@@ -61,6 +63,7 @@ bool limited_queue_atomic::pop(byte& val)
 {
 	for (;;)
 	{
+		//cout << "pop " << _start << " " << _end << " " << _size << endl;
 		auto local_start = _start.load(); // Извлекаем значение _start
 		byte temp = _vector[local_start % _size];
 		if (local_start != _start) // Кто-то изменил счётчик, значит данные уже не актуальны 

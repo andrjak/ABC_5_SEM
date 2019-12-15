@@ -24,7 +24,7 @@ public:
 template<typename Q>
 Producer<Q>::Producer(unsigned long long counter, unsigned int producerNum, Q* queue)
 {
-	_counter = counter * producerNum;
+	_counter = counter;
 	_producerNum = producerNum;
 	_queue = queue;
 }
